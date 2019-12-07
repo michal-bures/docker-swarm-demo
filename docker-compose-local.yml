@@ -1,0 +1,14 @@
+version: '3.2'
+services:
+
+  customers:
+    volumes:
+      - ./customer-service:/usr/src/app
+
+  products:
+    volumes:
+      - ./products-service:/usr/src/app
+
+  invoices:
+    volumes:
+      - ./invoices-service:/usr/src/app

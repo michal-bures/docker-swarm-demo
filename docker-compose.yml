@@ -1,10 +1,37 @@
 version: '3.2'
 services:
-  customers_db:
-    image: redis
+
   customers:
     build: customers-service
     environment:
       - REDIS_HOST=customers_db
     ports:
       - 80:8080
+    links:
+      - customers_db
+  customers_db:
+    image: redis
+
+  products:
+    build: products-service
+    environment:
+      - REDIS_HOST=products_db
+    ports:
+      - 8080:8080
+    links:
+      - products_db
+  products_db:
+    image: redis
+
+  invoices:
+    build: invoices-service
+    environment:
+      - REDIS_HOST=products_db
+      - CUSTOMERS_API=http://customers:8080
+      - PRODUCTS_API=http://products:8080
+    ports:
+      - 8081:8080
+    links:
+      - invoices_db
+  invoices_db:
+    image: redis

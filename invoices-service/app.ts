@@ -1,6 +1,6 @@
 import * as express from 'express';
 import {RegisterRoutes} from './routes';
-import "./controllers/customers";
+import "./controllers/invoices";
 import * as bodyParser from 'body-parser';
 import {NextFunction, Request, Response} from 'express';
 
@@ -16,7 +16,7 @@ async function main(): Promise<void> {
     app.use(errorMiddleware);
 
     app.listen(8080);
-    console.log("Customers service listening.");
+    console.log("Invoices service listening.");
 }
 
 

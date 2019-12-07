@@ -1,5 +1,5 @@
 {
-  "name": "customers-service",
+  "name": "products-service",
   "version": "1.0.0",
   "description": "",
   "main": "./app.ts",

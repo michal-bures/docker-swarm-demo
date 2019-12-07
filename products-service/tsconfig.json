@@ -1,0 +1,29 @@
+{
+    "compilerOptions": {
+        "strict": true,
+        "experimentalDecorators": true,
+        "emitDecoratorMetadata": true,
+        "outDir": "dist",
+        "rootDir": ".",
+        "skipLibCheck": true,
+        "declaration": true,
+        "target": "es2018",
+        "module": "commonjs",
+        "moduleResolution": "node",
+        "importHelpers": true,
+        "allowSyntheticDefaultImports": true,
+        "sourceMap": true,
+        "noImplicitAny": true,
+        "noImplicitThis": true,
+        "alwaysStrict": true,
+        "noEmitHelpers": true,
+        "lib": [
+            "esnext",
+            "dom"
+        ]
+    },
+    "exclude": [
+        "node_modules",
+        "dist"
+    ]
+}

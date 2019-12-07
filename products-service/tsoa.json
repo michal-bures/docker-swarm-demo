@@ -1,0 +1,17 @@
+{
+    "swagger": {
+        "outputDirectory": ".",
+        "entryFile": "./app.ts",
+        "controllerPathGlobs": [
+            "./controllers/**/*.ts"
+        ]
+    },
+    "routes": {
+        "entryFile": "./app.ts",
+        "routesDir": ".",
+        "middleware": "express"
+    },
+    "ignore": [
+        "**/node_modules/**"
+    ]
+}

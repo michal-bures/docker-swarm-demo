@@ -1,5 +1,5 @@
 {
-  "name": "customers-service",
+  "name": "invoices-service",
   "version": "1.0.0",
   "description": "",
   "main": "./app.ts",
@@ -12,9 +12,11 @@
   "author": "embaircz@gmail.com",
   "license": "MIT",
   "dependencies": {
+    "@types/superagent": "^4.1.4",
     "body-parser": "^1.19.0",
     "express": "^4.17.1",
     "ioredis": "^4.14.1",
+    "superagent": "^5.1.2",
     "ts-node": "^8.5.4",
     "ts-node-dev": "^1.0.0-pre.44",
     "tslib": "^1.10.0",
