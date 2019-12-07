@@ -1,0 +1,129 @@
+{
+	"basePath": "/",
+	"consumes": [
+		"application/json"
+	],
+	"definitions": {
+		"Customer": {
+			"properties": {
+				"id": {
+					"type": "string"
+				},
+				"name": {
+					"type": "string"
+				},
+				"address": {
+					"type": "string"
+				}
+			},
+			"required": [
+				"id",
+				"name",
+				"address"
+			],
+			"type": "object",
+			"additionalProperties": true
+		},
+		"UserCreationRequest": {
+			"properties": {
+				"name": {
+					"type": "string"
+				},
+				"address": {
+					"type": "string"
+				}
+			},
+			"required": [
+				"name",
+				"address"
+			],
+			"type": "object",
+			"additionalProperties": true
+		}
+	},
+	"info": {
+		"title": "customers-service",
+		"version": "1.0.0",
+		"license": {
+			"name": "MIT"
+		}
+	},
+	"paths": {
+		"/Customers": {
+			"get": {
+				"operationId": "GetAllCustomers",
+				"produces": [
+					"application/json"
+				],
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"schema": {
+							"items": {
+								"$ref": "#/definitions/Customer"
+							},
+							"type": "array"
+						}
+					}
+				},
+				"security": [],
+				"parameters": []
+			},
+			"put": {
+				"operationId": "CreateUser",
+				"produces": [
+					"application/json"
+				],
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"schema": {
+							"type": "string"
+						}
+					}
+				},
+				"security": [],
+				"parameters": [
+					{
+						"in": "body",
+						"name": "customer",
+						"required": true,
+						"schema": {
+							"$ref": "#/definitions/UserCreationRequest"
+						}
+					}
+				]
+			}
+		},
+		"/Customers/{id}": {
+			"get": {
+				"operationId": "GetCustomer",
+				"produces": [
+					"application/json"
+				],
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"schema": {
+							"$ref": "#/definitions/Customer"
+						}
+					}
+				},
+				"security": [],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"type": "string"
+					}
+				]
+			}
+		}
+	},
+	"produces": [
+		"application/json"
+	],
+	"swagger": "2.0",
+	"securityDefinitions": {}
+}

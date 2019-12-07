@@ -1,0 +1,10 @@
+version: '3.2'
+services:
+  customers_db:
+    image: redis
+  customers:
+    build: customers-service
+    environment:
+      - REDIS_HOST=customers_db
+    ports:
+      - 80:8080
