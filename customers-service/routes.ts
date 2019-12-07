@@ -99,7 +99,7 @@ export function RegisterRoutes(app: express.Express) {
             const controller = new Customers();
 
 
-            const promise = controller.createUser.apply(controller, validatedArgs as any);
+            const promise = controller.createCustomer.apply(controller, validatedArgs as any);
             promiseHandler(controller, promise, response, next);
         });
     // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa

@@ -70,7 +70,7 @@
 				"parameters": []
 			},
 			"put": {
-				"operationId": "CreateUser",
+				"operationId": "CreateCustomer",
 				"produces": [
 					"application/json"
 				],

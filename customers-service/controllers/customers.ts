@@ -50,7 +50,7 @@ export class Customers extends Controller {
     }
 
     @Put()
-    public async createUser(@Body() customer: UserCreationRequest): Promise<string> {
+    public async createCustomer(@Body() customer: UserCreationRequest): Promise<string> {
         const id = Uuid.v4();
         await redisClient.hmset(`customer:${id}`, {id, ...customer});
         await redisClient.lpush('customers', id);
