@@ -9,21 +9,23 @@
                             v-on:retry="fetchCustomers"
                     >
                         <CustomersList
-                            v-bind:customers="customers"
-                            v-bind:currentCustomerId="currentCustomerId"
-                            v-on:select-customer="selectCustomer"
-                            v-on:add-customer="addCustomer"
+                                v-bind:customers="customers"
+                                v-bind:currentCustomerId="currentCustomerId"
+                                v-on:select-customer="selectCustomer"
+                                v-on:add-customer="addCustomer"
                         />
 
                     </ModelLoader>
                 </b-col>
-                <b-col>
+                <b-col v-if="currentCustomerId">
+                    <h4>{{ currentCustomer.name }} > Invoices</h4>
                     <ModelLoader
                             v-bind:model="customerInvoices"
                             v-on:retry="fetchInvoices"
                     >
                         <InvoicesList
                                 v-bind:invoices="customerInvoices"
+                                v-bind:products="products"
                                 v-on:add-order="addInvoice"
                         />
                     </ModelLoader>
@@ -38,9 +40,22 @@
     import Vue from 'vue';
     import CustomersList from './components/CustomersList.vue';
     import ModelLoader from './components/ModelLoader.vue';
-    import {createCustomer, createInvoice, fetchCustomers, fetchInvoices, NewInvoice} from '@/rest-endpoints';
+    import {
+        createCustomer,
+        createInvoice,
+        fetchCustomers,
+        fetchInvoices,
+        fetchProducts,
+    } from '@/rest-endpoints';
     import {AsyncModel} from '@/lib/AsyncModel';
     import InvoicesList from './components/InvoicesList.vue';
+
+    interface Data {
+        customers: Array<{ id: string, name: string, address: string }> | Symbol
+        customerInvoices: Array<{ id: string, productId: string, quantity: number }> | Symbol
+        products: Array<{ id: string, name: string }> | Symbol,
+        currentCustomerId: string | null;
+    }
 
     export default Vue.extend({
         name: 'app',
@@ -49,18 +64,31 @@
             CustomersList,
             InvoicesList
         },
-        data: () => ({
-            customers: AsyncModel.LOADING,
-            currentCustomerId: 'C1',
-            customerInvoices: AsyncModel.LOADING,
-            products: AsyncModel.LOADING,
-        }),
+        data(): Data {
+            return {
+                customers: AsyncModel.LOADING,
+                currentCustomerId: null,
+                customerInvoices: AsyncModel.LOADING,
+                products: AsyncModel.LOADING,
+            }
+        },
+        computed: {
+            currentCustomer: function() {
+                return (this as any).customers!.find((c: any) => c.id === this.currentCustomerId);
+            }
+        },
         methods: {
             fetchCustomers() {
                 this.customers = AsyncModel.LOADING;
                 fetchCustomers()
                     .then((data) => this.customers = data)
                     .catch((err) => this.customers = AsyncModel.FAILED)
+            },
+            fetchProducts() {
+                this.products = AsyncModel.LOADING;
+                fetchProducts()
+                    .then((data) => this.products = data)
+                    .catch((err) => this.products = AsyncModel.FAILED)
             },
             selectCustomer(id: string) {
                 this.currentCustomerId = id;
@@ -69,29 +97,28 @@
                 this.customers = AsyncModel.LOADING;
                 createCustomer(name, address)
                     .then(() => this.fetchCustomers())
-                    .catch((err) => {
-                        console.log("FAILED", err);
+                    .catch(() => {
                         this.customers = AsyncModel.FAILED;
                     })
             },
-            addInvoice(newInvoice: NewInvoice) {
-                this.products = AsyncModel.LOADING;
-                createInvoice(newInvoice)
-                    .then(() => this.fetchCustomers())
+            addInvoice(productId: string, quantity: number) {
+                this.customerInvoices = AsyncModel.LOADING;
+                createInvoice({productId, quantity, customerId: this.currentCustomerId!})
+                    .then(() => this.fetchInvoices())
                     .catch((err) => {
-                        console.log("FAILED", err);
-                        this.products = AsyncModel.FAILED;
+                        this.customerInvoices = AsyncModel.FAILED;
                     })
             },
             fetchInvoices() {
                 fetchInvoices()
                     .then((data) => this.customerInvoices = data)
-                    .catch((err) => this.customerInvoices = AsyncModel.FAILED)
+                    .catch(() => this.customerInvoices = AsyncModel.FAILED)
             }
         },
         created() {
             this.fetchCustomers();
             this.fetchInvoices();
+            this.fetchProducts();
         }
     });
 

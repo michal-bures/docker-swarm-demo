@@ -6,6 +6,12 @@ export async function fetchCustomers() {
     return response.json();
 }
 
+export async function fetchProducts() {
+    const response = await fetch('/Products');
+    if (!response.ok) throw Error(response.statusText);
+    return response.json();
+}
+
 export async function fetchInvoices() {
     const response = await fetch('/Invoices');
     if (!response.ok) throw Error(response.statusText);
@@ -28,6 +34,7 @@ export async function createCustomer(name: string, address: string) {
 
 
 export interface NewInvoice {
+    customerId: string,
     productId: string,
     quantity: number
 }
