@@ -9,7 +9,7 @@ import * as express from 'express';
 // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
 
 const models: TsoaRoute.Models = {
-    "Customer": {
+    "CustomersList": {
         "dataType": "refObject",
         "properties": {
             "id": { "dataType": "string", "required": true },
@@ -19,7 +19,7 @@ const models: TsoaRoute.Models = {
         "additionalProperties": true,
     },
     // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
-    "UserCreationRequest": {
+    "CustomerCreationRequest": {
         "dataType": "refObject",
         "properties": {
             "name": { "dataType": "string", "required": true },
@@ -84,7 +84,7 @@ export function RegisterRoutes(app: express.Express) {
     app.put('/Customers',
         function(request: any, response: any, next: any) {
             const args = {
-                customer: { "in": "body", "name": "customer", "required": true, "ref": "UserCreationRequest" },
+                customer: { "in": "body", "name": "customer", "required": true, "ref": "CustomerCreationRequest" },
             };
 
             // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa

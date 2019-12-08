@@ -15,7 +15,7 @@ export interface Customer {
     address: string;
 }
 
-export interface UserCreationRequest {
+export interface CustomerCreationRequest {
     name: string;
     address: string;
 }
@@ -50,7 +50,7 @@ export class Customers extends Controller {
     }
 
     @Put()
-    public async createCustomer(@Body() customer: UserCreationRequest): Promise<string> {
+    public async createCustomer(@Body() customer: CustomerCreationRequest): Promise<string> {
         const id = Uuid.v4();
         await redisClient.hmset(`customer:${id}`, {id, ...customer});
         await redisClient.lpush('customers', id);

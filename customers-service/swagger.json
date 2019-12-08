@@ -4,7 +4,7 @@
 		"application/json"
 	],
 	"definitions": {
-		"Customer": {
+		"CustomersList": {
 			"properties": {
 				"id": {
 					"type": "string"
@@ -24,7 +24,7 @@
 			"type": "object",
 			"additionalProperties": true
 		},
-		"UserCreationRequest": {
+		"CustomerCreationRequest": {
 			"properties": {
 				"name": {
 					"type": "string"
@@ -89,7 +89,7 @@
 						"name": "customer",
 						"required": true,
 						"schema": {
-							"$ref": "#/definitions/UserCreationRequest"
+							"$ref": "#/definitions/CustomerCreationRequest"
 						}
 					}
 				]

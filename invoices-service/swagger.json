@@ -4,7 +4,7 @@
 		"application/json"
 	],
 	"definitions": {
-		"Customer": {
+		"CustomersList": {
 			"properties": {
 				"id": {
 					"type": "string"
