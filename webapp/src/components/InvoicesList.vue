@@ -1,7 +1,7 @@
 <template xmlns:v-slot="http://www.w3.org/1999/XSL/Transform">
     <div>
         <b-list-group>
-            <b-list-group-item button
+            <b-list-group-item
                     v-for="invoice of invoices"
                     v-bind:key="invoice.id"
             >

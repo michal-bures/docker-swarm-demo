@@ -12,8 +12,8 @@ export async function fetchProducts() {
     return response.json();
 }
 
-export async function fetchInvoices() {
-    const response = await fetch('/Invoices');
+export async function fetchCustomerInvoices(customerId: string) {
+    const response = await fetch(`/Invoices?customer-id=${encodeURIComponent(customerId)}`);
     if (!response.ok) throw Error(response.statusText);
     return response.json();
 }

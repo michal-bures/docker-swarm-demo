@@ -36,3 +36,8 @@ services:
       - 80:80
     volumes:
       - ./api-gateway:/etc/nginx
+    links:
+      - customers
+      - products
+      - invoices
+

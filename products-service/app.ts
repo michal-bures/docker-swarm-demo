@@ -3,10 +3,13 @@ import {RegisterRoutes} from './routes';
 import "./controllers/products";
 import * as bodyParser from 'body-parser';
 import {NextFunction, Request, Response} from 'express';
+import {Products} from './controllers/products';
 
 main().catch(err => console.error('Uncaught error in main function', err));
 
 async function main(): Promise<void> {
+
+    await new Products().reset();
 
     const app = express();
     app.use(bodyParser.json());

@@ -21,7 +21,7 @@
                     <h4>{{ currentCustomer.name }} > Invoices</h4>
                     <ModelLoader
                             v-bind:model="customerInvoices"
-                            v-on:retry="fetchInvoices"
+                            v-on:retry="fetchCustomerInvoices"
                     >
                         <InvoicesList
                                 v-bind:invoices="customerInvoices"
@@ -44,7 +44,7 @@
         createCustomer,
         createInvoice,
         fetchCustomers,
-        fetchInvoices,
+        fetchCustomerInvoices,
         fetchProducts,
     } from '@/rest-endpoints';
     import {AsyncModel} from '@/lib/AsyncModel';
@@ -92,6 +92,7 @@
             },
             selectCustomer(id: string) {
                 this.currentCustomerId = id;
+                this.fetchInvoices();
             },
             addCustomer(name: string, address: string) {
                 this.customers = AsyncModel.LOADING;
@@ -110,14 +111,13 @@
                     })
             },
             fetchInvoices() {
-                fetchInvoices()
+                fetchCustomerInvoices(this.currentCustomerId!)
                     .then((data) => this.customerInvoices = data)
                     .catch(() => this.customerInvoices = AsyncModel.FAILED)
             }
         },
         created() {
             this.fetchCustomers();
-            this.fetchInvoices();
             this.fetchProducts();
         }
     });

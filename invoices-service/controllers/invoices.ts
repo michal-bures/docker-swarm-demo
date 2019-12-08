@@ -1,4 +1,4 @@
-import {Body, Controller, Get, Put, Route} from 'tsoa';
+import {Body, Controller, Get, Put, Query, Route} from 'tsoa';
 
 import * as Redis from 'ioredis';
 import * as Uuid from 'uuid';
@@ -28,9 +28,14 @@ export interface InvoiceCreationRequest {
 export class Invoices extends Controller {
 
     @Get()
-    public async getAllInvoices(): Promise<Array<Invoice>> {
+    public async getInvoices(@Query('customer-id') customerId?: string): Promise<Array<Invoice>> {
         const invoiceIds = await redisClient.lrange('invoices', 0, -1);
-        return Promise.all(invoiceIds.map((id) => this.getInvoice(id)))
+        const all = await Promise.all(invoiceIds.map((id) => this.getInvoice(id)));
+        if (customerId) {
+            return all.filter(invoice => invoice.customerId === customerId);
+        } else {
+            return all;
+        }
     }
 
     @Get('{id}')

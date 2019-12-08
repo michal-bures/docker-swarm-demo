@@ -21,6 +21,10 @@ export interface ProductCreationRequest {
 @Route('Products')
 export class Products extends Controller {
 
+    constructor() {
+        super();
+    }
+
     @Get()
     public async getAllProducts(): Promise<Array<Product>> {
         const customerIds = await redisClient.lrange('products', 0, -1);
@@ -53,5 +57,15 @@ export class Products extends Controller {
         await redisClient.lpush('products', id);
         this.setStatus(200);
         return `${id}`;
+    }
+
+    public async reset() {
+        await redisClient.flushall();
+        await this.createProduct({name: 'Apples'});
+        await this.createProduct({name: 'Oranges'});
+        await this.createProduct({name: 'Bananas'});
+        await this.createProduct({name: 'Melons'});
+        await this.createProduct({name: 'Lemons'});
+        await this.createProduct({name: 'Carrots'});
     }
 }
