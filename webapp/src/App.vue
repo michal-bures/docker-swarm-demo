@@ -57,14 +57,14 @@
         currentCustomerId: string | null;
     }
 
-    export default Vue.extend({
+    export default Vue.extend<Data,any,any,any>({
         name: 'app',
         components: {
             ModelLoader,
             CustomersList,
             InvoicesList
         },
-        data(): Data {
+        data() {
             return {
                 customers: AsyncModel.LOADING,
                 currentCustomerId: null,

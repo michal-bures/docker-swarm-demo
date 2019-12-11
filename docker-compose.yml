@@ -30,6 +30,8 @@ services:
   invoices_db:
     image: redis
 
+  webapp:
+    build: webapp
   api-gateway:
     image: nginx
     ports:
@@ -40,4 +42,5 @@ services:
       - customers
       - products
       - invoices
+      - webapp
 
