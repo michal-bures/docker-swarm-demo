@@ -1,4 +1,4 @@
-# Running a microservice network with Docker Swarm
+# Running a microservice cluster with Docker Swarm
 
 This project is a minimalistic demonstration on how to run a swarm of microservices across multiple host machines using **Docker Swarm**.
 
