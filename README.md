@@ -2,19 +2,19 @@
 
 This project is a minimalistic demonstration on how to run a swarm of microservices across multiple host machines using **Docker Swarm**.
 
-Out of the box, Docker Swarm provides solutions for (among other things):
-* Scaling services including load balancing between service instances
+Out of the box, Docker Swarm provides solutions for:
+* Scaling services with automatic load balancing of traffic between containers
 * Automatic distribution of containers across multiple nodes
-* Recovery after a container or a whole machine crashed 
+* Automatic recovery after a container or a whole machine goes down 
 * Rolling upgrades with customizable strategies
 * Virtual overlay network for inter-container communication
+* ...and many other problems of running large distributed systems
 
-Docker Swarm makes it easy to run hundreds or thousands of interconnected containers and not even 
-think about all the physical machines that provide the computing resources.
+Docker Swarm makes it easy to run hundreds or thousands of interconnected containers without really thinking about the physical machines that provide the computing resources.
 
 ## The sample project
 
-The sample project is a very simplified approximation of a system for managing customers, products and ionvices.
+The sample project in this repository is a very simplified approximation of a distributed system for managing customers, products and invoices.
 It's composed of the following services:
 
   ![](docs/schema.png)
