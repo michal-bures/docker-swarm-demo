@@ -1,8 +1,9 @@
 version: '3.2'
 services:
-
+  # The /Customers API
   customers:
     build: customers-service
+    image: embair/swarm-demo:customers
     environment:
       - REDIS_HOST=customers_db
     links:
@@ -10,8 +11,10 @@ services:
   customers_db:
     image: redis
 
+  # The /Products API
   products:
     build: products-service
+    image: embair/swarm-demo:products
     environment:
       - REDIS_HOST=products_db
     links:
@@ -19,8 +22,10 @@ services:
   products_db:
     image: redis
 
+  # The /Invoices API
   invoices:
     build: invoices-service
+    image: embair/swarm-demo:invoices
     environment:
       - REDIS_HOST=invoices_db
       - CUSTOMERS_API=http://customers:8080
@@ -30,17 +35,31 @@ services:
   invoices_db:
     image: redis
 
+  # The Vue.js web application
   webapp:
     build: webapp
+    image: embair/swarm-demo:webapp
+
+  # The public gateway
   api-gateway:
-    image: nginx
+    build: api-gateway
+    image: embair/swarm-demo:api-gateway
     ports:
       - 80:80
-    volumes:
-      - ./api-gateway:/etc/nginx
     links:
       - customers
       - products
       - invoices
       - webapp
 
+  # Provides simple UI showing the current swarm state
+  viz:
+    image: dockersamples/visualizer:latest
+    volumes:
+      - "/var/run/docker.sock:/var/run/docker.sock"
+    ports:
+      - 8080:8080
+    deploy:
+      placement:
+        constraints:
+          - node.role==manager
